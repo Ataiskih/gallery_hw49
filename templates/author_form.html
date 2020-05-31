@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>Добавить автора</h3>
+    <form action="{{ url_for('author_reciever') }}" method="POST">
+        <div class="form-group">
+            <input class="form-control" type="text" name="name" placeholder="Имя художника">
+        </div>
+        <div class="form-group">
+            <label for="country_selection">Выберите страну:</label>
+            <select class="form-control" name="country" id="country_selection">
+                <option value="Россия">Россия</option>
+                <option value="Италия">Италия</option>
+                <option value="Франция">Франция</option>
+                <option value="Англия">Англия</option>
+                <option value="Норвегия">Норвегия</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-outline-dark">Добавить</button>
+    </form>
+{% endblock %}

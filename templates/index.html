@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <hr>
+    <form method="POST" >
+        <div class="form-group">
+            <input class="form-control" type="text" name="search_key">
+        </div>
+        <button class="btn btn-outline-dark">Поиск</button>
+    </form>
+    <hr>
+    <div>
+        {% for image in images %}
+            <div>
+                <h4><a href="{{ url_for('details', id=image.id) }}">{{ image.name }}</a></h4>
+                <img src="{{ image.url }}">
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -7,5 +7,7 @@
     <h4>Автор - {{ image.author }}</h4>
     <div>Описание: {{ image.description }}</div>
     <img src="{{ image.url }}">
-
+    <form method="POST"> 
+        <button type="submit" class="btn btn-outline-dark">DELETE</button>
+    </form>
 {% endblock %}

@@ -40,8 +40,8 @@ def reciever():
 
     session.add(new_image)      # добавление записей картин в sql
     session.commit()        # конец сессии
-
-    return render_template("success.html")
+    message = "Ваша картина  была добавлена успешно"   # добавление сообщения на стр susses 
+    return render_template("success.html", message=message)
 
 @app.route("/author_reciever", methods=["GET", "POST"])
 def author_reciever():
@@ -55,20 +55,29 @@ def author_reciever():
 
         session.add(new_author)     # добавление записей новых авторов в sql
         session.commit()        # конец сессии
-
-        return render_template("success.html")
+        message = "Автор был добавлен успешно"   # добавление сообщения на стр susses
+        return render_template("success.html", message=message)
     
     elif request.method == "GET":
         return render_template("author_form.html")
 
-@app.route("/details/<int:id>")
-def details(id):
-    image = session.execute('''
-        SELECT p.name, a.name AS author, p.price, p.description, p.url
-        FROM Picture AS p
-        JOIN Author AS a
-        ON p.author = a.id
-        WHERE p.id=%d
-    ''' % id).first()
-    session.commit()        # конец сессии
-    return render_template("details.html", image = image)
+@app.route("/details/<int:id>", methods = ["GET", "POST"])
+def details(id):        # отображение записей более подробно на стр details.html
+    if request.method == "GET":
+        image = session.execute('''
+            SELECT p.name, a.name AS author, p.price, p.description, p.url
+            FROM Picture AS p
+            JOIN Author AS a
+            ON p.author = a.id
+            WHERE p.id=%d
+        ''' % id).first()
+        session.commit()        # конец сессии
+        return render_template("details.html", image = image)
+
+    elif request.method == "POST":  
+        image = session.query(Picture).filter_by(id=id).first()
+        session.delete(image)
+        session.commit()        # конец сессии
+        message = "Вы успешно удалили запись"   # добавление сообщения на стр susses 
+        return render_template("success.html", image = image, message=message)
+    

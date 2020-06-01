@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-   <h3><script>
-        alert("Добавлено успешно")
-   </script></h3>
+<h2>{{ message }}</h2>
+<br>
    <a href="{{ url_for('index') }}"><button type="submit" class="btn btn-outline-dark">to Main</button></a>
 {% endblock %}
